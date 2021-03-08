@@ -1,4 +1,4 @@
-<?php 
+<<?php 
 require_once "../modelos/Permiso.php";
 
 $permiso=new Permiso();
@@ -6,6 +6,8 @@ $permiso=new Permiso();
 
 
 switch ($_GET["op"]){
+	
+
 	case 'listar':
 		$rspta=$permiso->listar();
  		//Vamos a declarar un array
@@ -15,11 +17,11 @@ switch ($_GET["op"]){
         
         while($reg=$rspta->fetch_object()){
             
-            $data[]=array(         
+            $data[]=array(
                     
+
                     "0" => $reg-> nombre,
-                    
-                    
+                                  
                     );
         }
         $results = array(
@@ -31,3 +33,4 @@ switch ($_GET["op"]){
 
 	break;
 }
+?>

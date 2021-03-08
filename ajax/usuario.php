@@ -1,8 +1,10 @@
 <?php
-session_start(); 
+session_start();
 require_once "../modelos/Usuario.php";
+require_once "../config/Enigma.php";
 
 $usuario=new Usuario();
+
 
 $idusuario=isset($_POST["idusuario"])? limpiarCadena($_POST["idusuario"]):"";
 $nombre=isset($_POST["nombre"])? limpiarCadena($_POST["nombre"]):"";
@@ -34,14 +36,28 @@ switch ($_GET["op"]){
 		}
 		//Hash SHA256 en la contraseña
 		$clavehash=hash("SHA256",$clave);
-
+           
+                               
 		if (empty($idusuario)){
 			$rspta=$usuario->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
 			echo $rspta ? "Usuario registrado" : "No se pudieron registrar todos los datos del usuario";
 		}
 		else {
-			$rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
-			echo $rspta ? "Usuario actualizado" : "Usuario no se pudo actualizar";
+                    
+                        if($rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso'])){
+                            echo "Se reiniciará su sesión para que los cambios tomen efecto está seguro?";
+                               session_unset();
+                             //Destruìmos la sesión
+                               session_destroy();
+                             //Redireccionamos al login
+                             //header("Location: ../index.php");
+                         
+                            
+                        }else{
+                            echo 'Usuario no se pudo actualizar';
+                        }
+			//$rspta=$usuario->editar($idusuario,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email,$cargo,$login,$clavehash,$imagen,$_POST['permiso']);
+			//echo $rspta ? "Debe cerrar sesión para que loc cambios tengan efecto "  : "Usuario no se pudo actualizar";
 		}
 	break;
 
@@ -117,8 +133,7 @@ switch ($_GET["op"]){
 					echo '<li> <input type="checkbox" '.$sw.'  name="permiso[]" value="'.$reg->idpermiso.'">'.$reg->nombre.'</li>';
 				}
 	break;
-
-	case 'verificar':
+case 'verificar':
 		$logina=$_POST['logina'];
 	    $clavea=$_POST['clavea'];
 
@@ -161,9 +176,9 @@ switch ($_GET["op"]){
 	    }
 	    echo json_encode($fetch);
 	break;
-
-	case 'salir':
-		//Limpiamos las variables de sesión   
+        
+        case 'salir':
+        //Limpiamos las variables de sesión   
         session_unset();
         //Destruìmos la sesión
         session_destroy();

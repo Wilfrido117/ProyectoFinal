@@ -1,62 +1,57 @@
 var tabla;
 
-//Funcion que se ejecute al inicio
-
+//FunciÃ³n que se ejecuta al inicio
 function init(){
-    mostrarform(false);
-    listar();
-    
-    $("#formulario").on("submit",function(e)
-    {
-            guardaryeditar(e); 
-        });
-    
+	mostrarform(false);
+	listar();
+
+	$("#formulario").on("submit",function(e)
+	{
+		guardaryeditar(e);	
+	})
 }
 
-//funcion limpiar
-
-function  limpiar(){
-    $("#idcategoria").val("");
-    $("#nombre").val(" ");
-    $("#descripcion").val(" ");
-    
-}
-
-// funcion mostrar formulario
-
-function mostrarform(flag)
-
+//FunciÃ³n limpiar
+function limpiar()
 {
-    limpiar();
-    if(flag){
-        
-$("#listadoregistros").hide();
-$("#formularioregistros").show();
-$("#btnGuardar").prop("disabled",false);
-        
-    }else{
-        
-$("#listadoregistros").show();
-$("#formularioregistros").hide();
-    }
-    
+	$("#nombre").val("");
+	$("#descripcion").val("");
+	$("#idcategoria").val("");
 }
 
-function cancelarform(){
-    
-    limpiar();
-    mostrarform(false);
+//FunciÃ³n mostrar formulario
+function mostrarform(flag)
+{
+	limpiar();
+	if (flag)
+	{
+		$("#listadoregistros").hide();
+		$("#formularioregistros").show();
+		$("#btnGuardar").prop("disabled",false);
+		$("#btnagregar").hide();
+	}
+	else
+	{
+		$("#listadoregistros").show();
+		$("#formularioregistros").hide();
+		$("#btnagregar").show();
+	}
 }
 
-// funcion listar
+//FunciÃ³n cancelarform
+function cancelarform()
+{
+	limpiar();
+	mostrarform(false);
+}
 
-//Función Listar
+//FunciÃ³n Listar
 function listar()
 {
 	tabla=$('#tbllistado').dataTable(
 	{
-            "aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//PaginaciÃ³n y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
 	    buttons: [		          
 		            'copyHtml5',
@@ -74,10 +69,12 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 5,//PaginaciÃ³n
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
+//FunciÃ³n para guardar o editar
+
 function guardaryeditar(e)
 {
 	e.preventDefault(); //No se activarÃ¡ la acciÃ³n predeterminada del evento
@@ -102,39 +99,54 @@ function guardaryeditar(e)
 	limpiar();
 }
 
+
+//funcion para mostrar datos antes de editar
 function mostrar(idcategoria){
-    $.post("../ajax/categoria.php?op=mostrar",{idcategoria:idcategoria}, function(data, status)
+    
+    $.post("../ajax/categoria.php?op=mostrar",{idcategoria : idcategoria }, function (data,status)
     {
-        data = JSON.parse(data);
+       data = JSON.parse(data);
         mostrarform(true);
         
-        $("#nombre").val(data.nombre);
+       $("#nombre").val(data.nombre);
         $("#descripcion").val(data.descripcion);
-        $("#idcategoria").val(data.idcategoria);
-    });
-    }
-//funcion para desactivar categoria
-function desactivar(idcategoria){
-    bootbox.confirm("¿Esta seguro de querer desactivar la categoria?", function(result){
-        if (result){
-            $.post("../ajax/categoria.php?op=desactivar",{idcategoria:idcategoria}, function(e){
-            bootbox.alert(e);
-            tabla.ajax.reload();
-            });
-        }
+         $("#idcategoria").val(data.idcategoria);
+       
     });
 }
-//funcion para activar categoria
-function activar(idcategoria){
-    bootbox.confirm("¿Esta seguro de querer activar la categoria?", function(result){
-        if (result){
-            $.post("../ajax/categoria.php?op=activar",{idcategoria:idcategoria}, function(e){
-            bootbox.alert(e);
-            tabla.ajax.reload();
+
+//Funcion para desactivar categoria
+function desactivar(idcategoria)
+{
+
+    bootbox.confirm("¿Está seguro de desctivar la categoría?", function(result){
+        if(result)
+        {
+            $.post("../ajax/categoria.php?op=desactivar", {idcategoria: idcategoria},function(e){
+                bootbox.alert(e);
+                tabla.ajax.reload();
             });
-            
+
         }
     });
+    
+}
+       
+//Funcion para activar categoria
+function activar(idcategoria)
+{
+
+    bootbox.confirm("¿Está seguro de activar la categoría?", function(result){
+        if(result)
+        {
+            $.post("../ajax/categoria.php?op=activar", {idcategoria: idcategoria},function(e){
+                bootbox.alert(e);
+                tabla.ajax.reload();
+            });
+
+        }
+    });
+    
 }
 
 init();

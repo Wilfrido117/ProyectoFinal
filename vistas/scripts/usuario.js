@@ -103,8 +103,9 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {                    
-	          bootbox.alert(datos);	          
+	    {        
+               confirm(datos);
+              window.location.href=('../index.php');
 	          mostrarform(false);
 	          tabla.ajax.reload();
 	    }

@@ -1,38 +1,39 @@
 var tabla;
 
-//Funcion que se ejecute al inicio
-
+//FunciÃ³n que se ejecuta al inicio
 function init(){
-    mostrarform(false);
-    listar(); 
+	mostrarform(false);
+	listar();
+
 }
 
 
-// funcion mostrar formulario
-
+//FunciÃ³n mostrar formulario
 function mostrarform(flag)
-
 {
-    if(flag){
-        
-$("#listadoregistros").hide();
-$("#formularioregistros").show();
-$("#btnGuardar").prop("disabled",false);
-        
-    }else{
-        
-$("#listadoregistros").show();
-$("#formularioregistros").hide();
-    }
-    
+	if (flag)
+	{
+		$("#listadoregistros").hide();
+		$("#formularioregistros").show();
+		$("#btnGuardar").prop("disabled",false);
+		$("#btnagregar").hide();
+	}
+	else
+	{
+		$("#listadoregistros").show();
+		$("#formularioregistros").hide();
+		$("#btnagregar").hide();
+	}
 }
-//Función Listar
+
+
+//FunciÃ³n Listar
 function listar()
 {
 	tabla=$('#tbllistado').dataTable(
 	{
-            "aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
+		"aProcessing": true,//Activamos el procesamiento del datatables
+	    "aServerSide": true,//PaginaciÃ³n y filtrado realizados por el servidor
 	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
 	    buttons: [		          
 		            'copyHtml5',
@@ -50,8 +51,10 @@ function listar()
 					}
 				},
 		"bDestroy": true,
-		"iDisplayLength": 5,//Paginación
+		"iDisplayLength": 5,//PaginaciÃ³n
 	    "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
 	}).DataTable();
 }
+
+
 init();
