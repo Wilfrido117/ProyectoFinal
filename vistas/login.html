@@ -1,0 +1,68 @@
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../public/css/estilos.css" rel="stylesheet" type="text/css"/>
+        
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Acceder</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrarte</label>
+		<div class="login-form">
+                    <form id="frmAcceso">
+			<div class="sign-in-htm">
+                            
+				<div class="group">
+					<label  class="label">Nombre de Usuario</label>
+					<input id="logina"  type="text" class="input">
+				</div>
+				<div class="group">
+					<label  class="label">Contraseña</label>
+					<input id="clavea" type="password" class="input" >
+				</div>
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Mantenerme conectado</label>
+				</div>
+				<div class="group">
+					<input type="submit" class="button" >
+				</div>
+                               
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="#forgot">has olvidado la contrseña?</a>
+				</div>
+                        </div>
+                        </form>
+			<div class="sign-up-htm">
+				<div class="group">
+					<label for="user" class="label">Nombre de Usuario</label>
+					<input type="text" class="input">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Contraseña</label>
+					<input  type="password" class="input" data-type="password">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Repita la Contraseña</label>
+					<input  type="password" class="input" data-type="password">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Direccion de Correo Electronico</label>
+					<input  type="text" class="input">
+				</div>
+				<div class="group">
+                                    <button type="submit" class="button" value="Registrarse"></button>
+				</div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<label for="tab-1">Recordar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    <script src="scripts/login.js" type="text/javascript"></script>
+</html>
