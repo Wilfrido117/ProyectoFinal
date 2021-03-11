@@ -8,7 +8,7 @@ function init(){
 	$("#formulario").on("submit",function(e)
 	{
 		guardaryeditar(e);	
-	})
+	});
 }
 
 //Función limpiar

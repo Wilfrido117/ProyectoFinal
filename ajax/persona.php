@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once "../modelos/Persona.php";
 
 $persona=new Persona();
